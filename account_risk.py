@@ -36,24 +36,14 @@ def assess_account_risk(username, user_data):
             account_locked = False
 
     # return a message
-    if account_locked == True:
+    if account_locked:
         return f"[{severity}]: {username} ({role}) account is locked. Reach out to IT for further assistance."
+    elif severity == "ALERT":
+        return f"[{severity}] {username} ({role}) is seeing a large amount of failed logins."
+    elif severity == "CRITICAL":
+        return f"[{severity}] {username} ({role}) is exhibiting abnormal login behavior!"
     else:
-        if role == "Executive":
-            return f"[{severity}] {username} ({role}) is exhibiting normal behavior."
-        elif role == "IT":
-            if severity == "ALERT":
-                return f"[{severity}] {username} ({role}) has failed to login several times."
-            else:
-                return f"[{severity}] {username} ({role}) is exhibiting normal behavior."
-        elif role == "User":
-            if severity == "ALERT":
-                return f"[{severity}] {username} ({role}) is seeing a large amount of failed logins."
-            elif severity == "CRITICAL":
-                return f"[{severity}] {username} ({role}) is exhibiting abnormal login behavior!"
-            else:
-                return f"[{severity}] {username} ({role}) is exhibiting normal behavior."
-
+        return f"[{severity}] {username} ({role}) is exhibiting normal behavior."
 
 accounts = {
     "admin": {
